@@ -1,0 +1,2 @@
+使用springsecurity+oauth2+mysql+redis实现单点登录
+springcloud-oauth2+springboot-security

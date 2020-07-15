@@ -1,0 +1,32 @@
+server:
+  port: 9002
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/auth_demo?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: 111111
+  main:
+    allow-bean-definition-overriding: true #这个表示允许我们覆盖OAuth2放在容器中的bean对象，一定要配置
+  redis:
+    host: localhost
+    port: 6379
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    serialization: {write-dates-as-timestamps: false}
+    time-zone: GMT+8
+
+logging:
+  level:
+    com.cc.oauth.server: debug
+
+
+mybatis-plus:
+  # 指定实体类所有包
+  type-aliases-package: com.cc.oauth.server.entity
+  mapper-locations: classpath:mapper/*.xml
+  global-config:
+    # 数据库相关配置
+    db-config:
+      #字段策略 IGNORED:"忽略判断",NOT_NULL:"非 NULL 判断"),NOT_EMPTY:"非空判断"
+      update-strategy: not_empty
