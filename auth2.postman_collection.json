@@ -1,0 +1,175 @@
+{
+	"info": {
+		"_postman_id": "8a7bac8f-f571-471b-a26f-39c26ed1d7c8",
+		"name": "auth2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Access Token By Client Creditails",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Refresh Token",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get resource1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9003/product?access_token=c0501956-b3cd-4da0-99c9-df5c941150c0",
+					"host": [
+						"localhost"
+					],
+					"port": "9003",
+					"path": [
+						"product"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "c0501956-b3cd-4da0-99c9-df5c941150c0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get resource2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9003/product?access_token=c0501956-b3cd-4da0-99c9-df5c941150c0",
+					"host": [
+						"localhost"
+					],
+					"port": "9003",
+					"path": [
+						"product"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "c0501956-b3cd-4da0-99c9-df5c941150c0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Access Token By User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "ck",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "111111",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "cc",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "111111",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:9002/oauth/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9002",
+					"path": [
+						"oauth",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check Token",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "ck",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "111111",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsicmVzb3VyY2UyX2FwaSIsInJlc291cmNlMV9hcGkiXSwidXNlcl9uYW1lIjoiY2siLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiZXhwIjoxNTk0ODg2NDM2LCJhdXRob3JpdGllcyI6WyJ3cml0ZSJdLCJqdGkiOiIzZTVhMTQwYS05ZGQ2LTQ3MjctODczYS1hNzM5ZThkMzdiNDAiLCJjbGllbnRfaWQiOiJjayJ9.B8KPbnUVGItlIkKC5yYoWbnpUBjvPh0it41423Hfi93g5ePH1LS20z_i9MF0so_omfqS48s3ytWJo5rULtpvdlkz-CyTS5tQBWTFQxHobJBv5CCOdSCaOVlRmBqg6IIRgpa8vB_cDocUFt_sdWUgh1BsR0HtQOszkesUUK_3vDWJZhXztmviFngmlfe27HQEbg9K1HowO9AYQ-Yv1QFX7dwiJFEN7G6xTvETNhSy9la2de03pYFU8box4ziPsTPzET1Ki70wUL9BFCY1czvDJf3Ed_9dFOEGZ7Tu0omf8lMxbCPGViTqFfUCDWIY7hfX9G6QgGpKmtpP9JBCCw8aTQ",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:9002/oauth/check_token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9002",
+					"path": [
+						"oauth",
+						"check_token"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
