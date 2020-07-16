@@ -26,27 +26,9 @@ import javax.sql.DataSource;
 @EnableGlobalMethodSecurity(prePostEnabled = true)//开启方法级别的安全认证
 public class OauthResourceConfig extends ResourceServerConfigurerAdapter {
 
-    @Autowired
-    DataSource dataSource;
 
     @Autowired
     TokenStore tokenStore;
-
-    /**
-     * 指定token的持久化策略
-     * 有JdbcTokenStore，InMemoryTokenStore，JwkTokenStore，RedisTokenStore
-     *
-     * @param
-     * @author wangchen
-     * @createDate 2020/7/15
-     **/
-    @Bean
-    public TokenStore tokenStore(RedisConnectionFactory redisConnectionFactory) {
-        // redis 管理令牌 此时不需要再连接auth_demo数据库。oauth_server也需要使用redisTokenStore
-//        return new RedisTokenStore(redisConnectionFactory);
-        //需要连接auth_demo数据库做认证
-        return new JdbcTokenStore(dataSource);
-    }
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {

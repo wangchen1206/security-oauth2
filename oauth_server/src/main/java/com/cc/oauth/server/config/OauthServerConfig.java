@@ -3,6 +3,7 @@ package com.cc.oauth.server.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,6 +21,9 @@ import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeSe
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
 import javax.sql.DataSource;
@@ -33,6 +37,8 @@ import javax.sql.DataSource;
 @Configuration
 @EnableAuthorizationServer
 public class OauthServerConfig extends AuthorizationServerConfigurerAdapter {
+
+    public static final String JWT_KEY = "ccass";
     @Autowired
     private DataSource dataSource;
     @Autowired
@@ -45,6 +51,27 @@ public class OauthServerConfig extends AuthorizationServerConfigurerAdapter {
     private TokenStore tokenStore;
     @Autowired
     private WebResponseExceptionTranslator customWebRcesponseExceptionTranslator;
+
+
+    /**
+     * JWTAccesstokenConverter
+     *
+     * @param
+     * @author wangchen
+     * @createDate 2020/7/16
+     **/
+    @Bean
+    public JwtAccessTokenConverter jwtAccessTokenConverter(){
+        JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
+        //对称加密，资源服务器也要使用此key进行解密，来校验令牌合法性
+        //jwtAccessTokenConverter.setSigningKey(JWT_KEY); //JWT 密钥
+        //非对称加密
+        KeyStoreKeyFactory keyStoreKeyFactory =new KeyStoreKeyFactory(
+                new ClassPathResource("oauth2-jwt.jks"),"ccayss".toCharArray());
+        jwtAccessTokenConverter.setKeyPair(keyStoreKeyFactory.getKeyPair("oauth2-jwt"));
+        return jwtAccessTokenConverter;
+    }
+
 
 
     /**
@@ -72,7 +99,8 @@ public class OauthServerConfig extends AuthorizationServerConfigurerAdapter {
     public TokenStore tokenStore(RedisConnectionFactory redisConnectionFactory){
         //使用redis保存token,需和资源服务器保存token的方式一致
 //        return new RedisTokenStore(redisConnectionFactory);
-        return new JdbcTokenStore(dataSource);
+//        return new JdbcTokenStore(dataSource);
+        return new JwtTokenStore(jwtAccessTokenConverter());
     }
 
     /**
@@ -163,6 +191,8 @@ public class OauthServerConfig extends AuthorizationServerConfigurerAdapter {
                 .authorizationCodeServices(authorizationCodeServices())
                 //token保存策略
                 .tokenStore(tokenStore)
+                //JWTAccessTokenConverter
+                .accessTokenConverter(jwtAccessTokenConverter())
                 .userDetailsService(userDetailsService);
     }
 }
