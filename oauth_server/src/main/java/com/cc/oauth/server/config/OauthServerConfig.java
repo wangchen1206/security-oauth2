@@ -98,9 +98,9 @@ public class OauthServerConfig extends AuthorizationServerConfigurerAdapter {
     @Bean
     public TokenStore tokenStore(RedisConnectionFactory redisConnectionFactory){
         //使用redis保存token,需和资源服务器保存token的方式一致
-//        return new RedisTokenStore(redisConnectionFactory);
+        return new RedisTokenStore(redisConnectionFactory);
 //        return new JdbcTokenStore(dataSource);
-        return new JwtTokenStore(jwtAccessTokenConverter());
+//        return new JwtTokenStore(jwtAccessTokenConverter());
     }
 
     /**
@@ -131,7 +131,7 @@ public class OauthServerConfig extends AuthorizationServerConfigurerAdapter {
     /**
      * 指定客户端登录信息来源
      *
-     * @param [clients]
+     * @param clients
      * @author wangchen 
      * @createDate 2020/7/15
      **/
@@ -160,7 +160,7 @@ public class OauthServerConfig extends AuthorizationServerConfigurerAdapter {
     /**
      * 检测token策略
      *
-     * @param [security]
+     * @param security
      * @author wangchen
      * @createDate 2020/7/15
      **/
@@ -175,7 +175,7 @@ public class OauthServerConfig extends AuthorizationServerConfigurerAdapter {
     /**
      * OAuth2的主配置信息
      *
-     * @param [endpoints]
+     * @param endpoints
      * @author wangchen
      * @createDate 2020/7/15
      **/
@@ -192,7 +192,7 @@ public class OauthServerConfig extends AuthorizationServerConfigurerAdapter {
                 //token保存策略
                 .tokenStore(tokenStore)
                 //JWTAccessTokenConverter
-                .accessTokenConverter(jwtAccessTokenConverter())
+                //.accessTokenConverter(jwtAccessTokenConverter())
                 .userDetailsService(userDetailsService);
     }
 }

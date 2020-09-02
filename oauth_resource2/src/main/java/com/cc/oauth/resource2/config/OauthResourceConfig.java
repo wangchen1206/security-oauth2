@@ -41,7 +41,7 @@ public class OauthResourceConfig extends ResourceServerConfigurerAdapter {
         http.authorizeRequests()
                 //指定不同的请求方式访问资源所需要的权限，一般查询是read,其余是write
             .antMatchers(HttpMethod.GET,"/**").access("#oauth2.hasScope('read')")
-            .antMatchers(HttpMethod.POST,"/**").access("#oauth2.hasScope('write')")
+            .antMatchers(HttpMethod.POST,"/**").access("#oauth2.clientHasRole('write')")
             .antMatchers(HttpMethod.PATCH,"/**").access("#oauth2.hasScope('write')")
             .antMatchers(HttpMethod.DELETE,"/**").access("#oauth2.hasScope('write')")
             .antMatchers(HttpMethod.OPTIONS,"/**").access("#oauth2.hasScope('write')")

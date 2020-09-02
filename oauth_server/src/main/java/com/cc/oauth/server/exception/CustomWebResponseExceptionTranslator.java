@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.common.exceptions.*;
+import org.springframework.security.oauth2.provider.ClientRegistrationException;
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 import org.springframework.stereotype.Component;
 
@@ -60,6 +61,10 @@ public class CustomWebResponseExceptionTranslator implements
     if (e instanceof BadClientCredentialsException) {
        message = "无效的客户端用户或密码";
       return status.body(CommonResult.build(1008,message));
+    }
+    if (e instanceof RedirectMismatchException && StringUtils.containsIgnoreCase(e.getMessage(),"Invalid redirect")){
+      message = "请求的redirect_uri无效";
+      return status.body(CommonResult.build(1009,message));
     }
     return status.body(CommonResult.build(1006,message));
   }

@@ -7,6 +7,8 @@
         <module>oauth_resource</module>
         <module>oauth_server</module>
         <module>oauth_resource2</module>
+        <module>oauth-common</module>
+        <module>third-part</module>
     </modules>
 
     <groupId>com.cc</groupId>
@@ -39,7 +41,10 @@
     </dependencyManagement>
     <dependencies>
 
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

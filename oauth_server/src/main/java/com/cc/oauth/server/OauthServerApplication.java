@@ -3,6 +3,7 @@ package com.cc.oauth.server;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 
 /**
  * <Description>
@@ -12,6 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 @MapperScan("com.cc.oauth.server.mapper")
+@ServletComponentScan
 public class OauthServerApplication {
 
     public static void main(String[] args) {

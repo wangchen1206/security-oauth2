@@ -31,3 +31,7 @@ jwtToken 非对称加密
     keytool -list -rfc --keystore cc-jwt.jks | openssl x509 -inform pem -pubkey
     输入口令：password
     复制公钥部分到 public.txt 放到资源服务器resources目录下
+
+
+CSRF攻击 :增加授权码模式请求授权时强制state参数 过滤器OauthAuthorizationCodeFilter
+
