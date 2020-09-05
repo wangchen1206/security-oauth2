@@ -9,11 +9,6 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -33,8 +28,13 @@ public class HomeController {
     @Autowired
     private RestTemplate restTemplate;
 
-    @GetMapping("/login")
+    @GetMapping("/login1")
     public String login(){
+        return "login1";
+    }
+
+    @GetMapping("/login")
+    public String login1(){
         return "login";
     }
 
